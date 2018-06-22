@@ -9,6 +9,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Media;
 using Newtonsoft.Json;
 
 namespace OMDB_Api
@@ -18,42 +19,48 @@ namespace OMDB_Api
     /// </summary>
     public partial class MainWindow : Window
     {
-        System.Windows.Threading.DispatcherTimer dispatcher = new System.Windows.Threading.DispatcherTimer();
+        List<string> films;
         public MainWindow()
         {
             InitializeComponent();
 
         }
-        public void GetFilmInfo()
+        public void GetFilmInfo(string filmName)
         {
             WebClient webClient = new WebClient();
-            var title = filmTxt.Text.Split(',');
-            for (int i = 0; i < title.Length; i++)
-            {
-                var result = webClient.DownloadString($"http://www.omdbapi.com/?apikey=cb2c41fe&t={title[i]}");
-                dynamic data = JsonConvert.DeserializeObject(result);
-                richtxt.FontWeight = FontWeights.UltraBold;
-                richtxt.Text += data.Title + "\n PLot : " + data.Plot + "\n";
-            }
-            dispatcher.Stop();
-
+            var result = webClient.DownloadString($"http://www.omdbapi.com/?apikey=cb2c41fe&t={filmName}");
+            dynamic data = JsonConvert.DeserializeObject(result);
+            Dispatcher.Invoke(new Action(() => richtxt.Text +="Title : " + data.Title + "\nPlot : " + data.Plot + "\n\n"));
+            Dispatcher.Invoke(new Action(() => richtxt.Foreground = Brushes.DarkKhaki));
+            Dispatcher.Invoke(new Action(() => richtxt.FontWeight = FontWeights.Bold));
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            var filminfo = filmTxt.Text;
+            films = filmTxt.Text.Split(',').ToList();
+            if (!string.IsNullOrWhiteSpace(richtxt.Text))
+            {
+                richtxt.Clear();
+            }
+            foreach (var item in films)
+            {
+                NewThread(item);
 
-            dispatcher.Tick += Dispatcher_Tick;
-            dispatcher.Interval = new TimeSpan(0, 0, 2);
-            dispatcher.Start();
-            GetFilmInfo();
-
+            }
         }
 
-        private void Dispatcher_Tick(object sender, EventArgs e)
+        public void NewThread(string film)
         {
-
-            GetFilmInfo();
+            var thread = new Thread(new ThreadStart(
+                () =>
+                {
+                    GetFilmInfo(film);
+                }));
+            thread.Start();
 
         }
+
+        
     }
 }
