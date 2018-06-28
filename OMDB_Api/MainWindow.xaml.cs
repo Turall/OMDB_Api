@@ -31,7 +31,7 @@ namespace OMDB_Api
             var result = webClient.DownloadString($"http://www.omdbapi.com/?apikey=cb2c41fe&t={filmName}");
             dynamic data = JsonConvert.DeserializeObject(result);
             Dispatcher.Invoke(new Action(() => richtxt.Text +="Title : " + data.Title + "\nPlot : " + data.Plot + "\n\n"));
-            Dispatcher.Invoke(new Action(() => richtxt.Foreground = Brushes.DarkKhaki));
+            Dispatcher.Invoke(new Action(() => richtxt.Foreground = Brushes.WhiteSmoke));
             Dispatcher.Invoke(new Action(() => richtxt.FontWeight = FontWeights.Bold));
         }
 

@@ -7,10 +7,36 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" Background="DarkGray">
     <Grid>
-        <TextBox Name="filmTxt" HorizontalAlignment="Left" Height="23" Margin="106,27,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="603"/>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="Black" Offset="0"/>
+                <GradientStop Color="#FF6E3C3C" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <TextBox Name="filmTxt" HorizontalAlignment="Left" Height="35" Margin="106,25,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="603" Background="#FF11132C" CaretBrush="Black">
+            <TextBox.Foreground>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black" Offset="0"/>
+                    <GradientStop Color="White" Offset="1"/>
+                </LinearGradientBrush>
+            </TextBox.Foreground>
+        </TextBox>
         <TextBlock HorizontalAlignment="Left" Margin="47,30,0,0" TextWrapping="Wrap" Text="Films" VerticalAlignment="Top" Width="54"/>
-        <Button Background="Green" Content="Search" HorizontalAlignment="Left" Margin="47,75,0,0" VerticalAlignment="Top" Width="696" Height="26" Click="Button_Click" KeyUp="Button_KeyUp"/>
-        <TextBox Background="DimGray" Name="richtxt" HorizontalAlignment="Left" Height="273" Margin="10,137,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="774"/>
+        <Button Content="Search" HorizontalAlignment="Left" Margin="47,75,0,0" VerticalAlignment="Top" Width="696" Height="26" Click="Button_Click" >
+            <Button.Foreground>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black" Offset="0"/>
+                    <GradientStop Color="Black" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Foreground>
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black" Offset="0"/>
+                    <GradientStop Color="#FFAE2222" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+        <TextBox IsReadOnly ="true"  Background="#FF211616" Name="richtxt" HorizontalAlignment="Left" Height="273" Margin="10,137,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="774"/>
 
     </Grid>
 </Window>
